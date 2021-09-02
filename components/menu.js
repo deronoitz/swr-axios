@@ -9,6 +9,9 @@ export default function Menu() {
       <Link href="/posts">
         <a className="px-4 py-2 text-blue-500">Posts</a>
       </Link>
+      <Link href="/posts-no-cache">
+        <a className="px-4 py-2 text-blue-500">Posts without cache</a>
+      </Link>
       <Link href="/users">
         <a className="px-4 py-2 text-blue-500">Users</a>
       </Link>

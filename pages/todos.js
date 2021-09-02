@@ -9,10 +9,16 @@ const url = "https://jsonplaceholder.typicode.com/todos?_limit=50&_start=180";
 
 export default function Todos() {
   const [text, setText] = useState("");
-  const { data, error } = useSWR(url, fetcher);
+  const { data, error, mutate, isValidating } = useSWR(url, fetcher);
 
   async function handleSubmit() {
     try {
+      const body = {
+        title: text,
+        completed: false
+      };
+      mutate([body, ...data]);
+
       const res = await axios({
         method: "post",
         url,
@@ -22,7 +28,6 @@ export default function Todos() {
       });
 
       const resData = res.data;
-
       console.log(resData);
     } catch (err) {
       console.log(err);
@@ -34,7 +39,7 @@ export default function Todos() {
       <h1 className="text-3xl font-bold my-8">SWR with Axios</h1>
       <h2 className="text-2xl mb-4">(Todos)</h2>
       <Menu />
-
+      <p>isValidating: {isValidating.toString()}</p>
       <div className="container">
         <div className="text-center mt-4 mb-8">
           <input
